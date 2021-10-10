@@ -8,6 +8,7 @@ import Canvas from './Canvas';
 import reactDom from 'react-dom';
 import Face from './Face';
 import WebcamModal from './WebcamModal';
+import * as faceapi from 'face-api.js';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -22,11 +23,25 @@ function App() {
   const [cameraOpen, setCameraOpen] = React.useState(false);
   const [image, setImage] = React.useState();
   const [songs, setSongs] = React.useState(["a", "b", "c", "d", "e", "f", "g", "h"]);
-
   const imgRef = React.useRef(null);
 
   const [webcamModal, setWebcamModal] = React.useState(false);
   const [emotion, setEmotion] = React.useState();
+  const [modelsLoaded, setModelsLoaded] = React.useState(false);
+
+  React.useEffect(() => {
+    const loadModels = async () => {
+      const MODEL_URL = process.env.PUBLIC_URL + '/models';
+
+      Promise.all([
+        faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+        faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
+        faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+        faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
+      ]).then(setModelsLoaded(true));
+    }
+    loadModels();
+  }, []);
 
   const capture = React.useCallback(
     () => {
@@ -116,11 +131,19 @@ function App() {
       </Button>
 
       {/* Open Webcam and Capture emotion */}
-      <WebcamModal
-        webcamModal={webcamModal}
-        setEmotion={setEmotion}
-        handleCLose={() => setWebcamModal(false)}
-      />
+      {
+        webcamModal ?
+          <WebcamModal
+            webcamModal={webcamModal}
+            closeWebcamModal={() => setWebcamModal(false)}
+            setEmotion={setEmotion}
+            modelsLoaded={modelsLoaded}
+          />
+          :
+          <>
+          </>
+      }
+
 
       <div>
         {/* <Box sx={{ flexGrow: 1, marginTop: '20px', padding: '20px' }}>
