@@ -3,7 +3,7 @@ import * as faceapi from 'face-api.js';
 
 function Face(props) {
 
-    const { cameraOpen } = props;
+    const { cameraOpen, closeCamera } = props;
 
     const videoRef = React.useRef(null);
     const videoHeight = 480;
@@ -27,7 +27,6 @@ function Face(props) {
 
     const startVideo = () => {
         setModalLoading(false);
-        console.log("eee", cameraOpen);
         navigator.mediaDevices
             .getUserMedia({ video: { width: 300 } })
             .then(stream => {

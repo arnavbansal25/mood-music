@@ -46,22 +46,22 @@ function WebcamModal(props) {
         console.log("video playing");
 
         setInterval(async () => {
-            if (webcamModal) {
-                // canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(videoRef.current);
+            if (webcamModal && canvasRef && canvasRef.current) {
+                canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(videoRef.current);
                 const displaySize = {
                     width: videoWidth,
                     height: videoHeight
                 }
 
-                // faceapi.matchDimensions(canvasRef.current, displaySize);
+                faceapi.matchDimensions(canvasRef.current, displaySize);
 
                 const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
 
-                // const resizedDetections = faceapi.resizeResults(detections, displaySize);
-                // canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
-                // faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
-                // faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
-                // faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
+                const resizedDetections = faceapi.resizeResults(detections, displaySize);
+                canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
+                faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
+                faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
+                faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
 
                 // if (detections && detections[0] && detections[0].expressions) {
                 //     console.log("qq", detections);
