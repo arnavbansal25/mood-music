@@ -13,7 +13,7 @@ const style = {
     borderRadius: 5,
     p: 2,
 };
-// aa
+
 function WebcamModal(props) {
 
     const { webcamModal, setEmotion, closeWebcamModal, modelsLoaded } = props;
@@ -58,10 +58,10 @@ function WebcamModal(props) {
                 const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
 
                 const resizedDetections = faceapi.resizeResults(detections, displaySize);
-                canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
-                faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
-                faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
-                faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
+                canvasRef && canvasRef.current && canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
+                canvasRef && canvasRef.current && faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
+                canvasRef && canvasRef.current && faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
+                canvasRef && canvasRef.current && faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
 
                 // if (detections && detections[0] && detections[0].expressions) {
                 //     console.log("qq", detections);
