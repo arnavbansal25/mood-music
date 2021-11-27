@@ -14,16 +14,18 @@ var geolocation = require('geolocation')
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
-  padding: theme.spacing(1),
+  // padding: theme.spacing(1),
   textAlign: 'center',
   color: theme.palette.text.secondary,
+  borderRadius: '10px',
 }));
 
 function App() {
 
   const webcamRef = React.useRef(null);
   const [cameraOpen, setCameraOpen] = React.useState(false);
-  const [songs, setSongs] = React.useState(["a", "b", "c", "d", "e", "f", "g", "h"]);
+  const [songs, setSongs] = React.useState(JSON.parse(localStorage.getItem('songs')));
+  // const [songs, setSongs] = React.useState(['a','b','c','d','e','f','g','h']);
 
 
   const [webcamModal, setWebcamModal] = React.useState(false);
@@ -47,15 +49,17 @@ function App() {
 
     !location && geolocation.getCurrentPosition(function (err, position) {
       if (err) throw err
-      setLocation(position.coords.latitude+","+position.coords.longitude)
+      setLocation(position.coords.latitude + "," + position.coords.longitude)
       // console.log(position.coords.latitude, position.coords.longitude);
     })
 
-    location && axios.get("http://api.weatherapi.com/v1/current.json?key=9daf1b5e91b44082aea161904212910&q="+location+"&aqi=no")
-    .then((response) => {
-      setWeather(response.data.current.condition.text);
-      // console.log("rrr", response.data.current.condition.text);
-    })
+    location && axios.get("http://api.weatherapi.com/v1/current.json?key=9daf1b5e91b44082aea161904212910&q=" + location + "&aqi=no")
+      .then((response) => {
+        setWeather(response.data.current.condition.text);
+        // console.log("rrr", response.data.current.condition.text);
+      })
+
+    console.log("rr", JSON.parse(localStorage.getItem('songs')));
   }, [location]);
 
 
@@ -86,17 +90,17 @@ function App() {
   }
 
   const recommendSongs = (mood) => {
-    if(!weather) {
+    if (!weather) {
       alert("Detecting weather...");
       return;
     }
 
-    console.log("ddd", `${mood} ${weather}`, mood+" "+weather);
+    console.log("ddd", `${mood} ${weather}`, mood + " " + weather);
 
     const options = {
       method: 'GET',
       url: 'https://unsa-unofficial-spotify-api.p.rapidapi.com/search',
-      params: { query: mood+" "+weather, count: '20', type: 'tracks' },
+      params: { query: mood + " " + weather, count: '20', type: 'tracks' },
       headers: {
         'x-rapidapi-host': 'unsa-unofficial-spotify-api.p.rapidapi.com',
         'x-rapidapi-key': '9a977e5dc7msh69a15b5a87d8d6cp138cdfjsnfe53b0f3bcc5'
@@ -106,6 +110,7 @@ function App() {
     // axios.request(options).then(function (response) {
     //   console.log(response.data.Results);
     //   setSongs(response.data.Results);
+    //   localStorage.setItem('songs', JSON.stringify(response.data.Results));
     // }).catch(function (error) {
     //   console.error(error);
     // });
@@ -113,7 +118,7 @@ function App() {
 
   const draw = (canvas) => {
     const ctx = canvas.getContext('2d');
-    
+
     // ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
     // ctx.fillStyle = 'green'
     // ctx.beginPath()
@@ -154,19 +159,21 @@ function App() {
           </>
       }
 
-
       <div>
-        Final Emotion: {emotion}
+        {emotion ?
+          <span style={{ color: 'white' }}>You seem {emotion} today!</span>
+          :
+          <>
+          </>
+        }
         <Box sx={{ flexGrow: 1, marginTop: '20px', padding: '20px' }}>
-          <Grid container spacing={2}>
-            {songs && songs.map(item => (
-              <>
-                <Grid item xs={3} md={2}>
-                  <Item>
-                    <SongCard song={item} />
-                  </Item>
-                </Grid>
-              </>
+          <Grid container spacing={3}>
+            {songs && songs.map((item, index) => (
+              <Grid item xs={4} md={2} key={index}>
+                <Item>
+                  <SongCard song={item} />
+                </Item>
+              </Grid>
             ))}
           </Grid>
         </Box>
