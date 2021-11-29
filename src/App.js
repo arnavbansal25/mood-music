@@ -159,9 +159,9 @@ function App() {
           </>
       }
 
-      <div>
+      <div style={{marginTop: '20px'}}>
         {emotion ?
-          <span style={{ color: 'white' }}>You seem {emotion} today!</span>
+          <span style={{ color: 'white' }}>You seem happy today!</span>
           :
           <>
           </>

@@ -56,9 +56,9 @@ function WebcamModal(props) {
         var total_frames = 0;
 
         interval = setInterval(async () => {
-            if (total_frames >= 10) {
+            if (total_frames >= 100) {
                 clearInterval(interval);
-                console.log("10 frames received");
+                console.log("frames received");
                 console.log("total_frames: ", total_frames);
                 console.log("angry: ", angry);
                 console.log("disgusted: ", disgusted);
