@@ -44,8 +44,6 @@ function WebcamModal(props) {
     };
 
     const handleVideoOnPlay = () => {
-        console.log("video playing");
-
         var angry = 0;
         var disgusted = 0;
         var fearful = 0;
@@ -56,17 +54,17 @@ function WebcamModal(props) {
         var total_frames = 0;
 
         interval = setInterval(async () => {
-            if (total_frames >= 100) {
+            if (total_frames >= 50) {
                 clearInterval(interval);
-                console.log("frames received");
-                console.log("total_frames: ", total_frames);
-                console.log("angry: ", angry);
-                console.log("disgusted: ", disgusted);
-                console.log("fearful: ", fearful);
-                console.log("happy: ", happy);
-                console.log("neutral: ", neutral);
-                console.log("sad: ", sad);
-                console.log("surprised: ", surprised);
+                // console.log("frames received");
+                // console.log("total_frames: ", total_frames);
+                // console.log("angry: ", angry);
+                // console.log("disgusted: ", disgusted);
+                // console.log("fearful: ", fearful);
+                // console.log("happy: ", happy);
+                // console.log("neutral: ", neutral);
+                // console.log("sad: ", sad);
+                // console.log("surprised: ", surprised);
                 var emoVal = Math.max(angry, disgusted, fearful, happy, neutral, sad, surprised);
                 if(emoVal == angry) {
                     setEmotion("angry");
