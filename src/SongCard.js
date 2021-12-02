@@ -1,11 +1,12 @@
 import React from 'react';
 import spotify from './spotify.png';
-import shazam from './shazam.png'
+import shazam from './shazam.png';
+import apple from './apple.png';
 
 function SongCard(props) {
 
     const { song } = props;
-    // console.log("epp", song);
+    console.log("epp", song);
 
     const min = Math.floor((song.duration_ms / 1000) / 60);
     const sec = Math.floor((song.duration_ms / 1000) % 60);
@@ -55,8 +56,11 @@ function SongCard(props) {
                 Artist: {song.artists[0].name}
             </div> */}
             <div>
-                <a href={song.track.share.href} target="_black">
+                <a href={song.track.share.href} target="_black" style={{marginRight: '20px'}}>
                     <img src={shazam} width='30px' height='30px' />
+                </a>
+                <a href={song.track.hub.options[0].actions[0].uri} target="_black">
+                    <img src={apple} width='30px' height='30px' />
                 </a>
             </div>
         </div>
