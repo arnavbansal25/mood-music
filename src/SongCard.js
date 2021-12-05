@@ -6,7 +6,7 @@ import apple from './apple.png';
 function SongCard(props) {
 
     const { song } = props;
-    console.log("epp", song);
+    // console.log("epp", song);
 
     const min = Math.floor((song.duration_ms / 1000) / 60);
     const sec = Math.floor((song.duration_ms / 1000) % 60);

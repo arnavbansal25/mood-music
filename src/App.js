@@ -19,7 +19,8 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function App() {
 
-  const [songs, setSongs] = React.useState(JSON.parse(localStorage.getItem('newSongs')));
+  // const [songs, setSongs] = React.useState(JSON.parse(localStorage.getItem('newSongs')));
+  const [songs, setSongs] = React.useState([]);
   const [showSongs, setShowSongs] = React.useState(false);
 
   const [webcamModal, setWebcamModal] = React.useState(false);
@@ -78,12 +79,13 @@ function App() {
       }
     };
 
-    // axios.request(options).then(function (response) {
-    //   console.log(response.data);
-    //   localStorage.setItem('newSongs', JSON.stringify(response.data));
-    // }).catch(function (error) {
-    //   console.error(error);
-    // });
+    axios.request(options).then(function (response) {
+      console.log(response.data.tracks.hits);
+      setSongs(response.data.tracks.hits);
+      // localStorage.setItem('newSongs', JSON.stringify(response.data));
+    }).catch(function (error) {
+      console.error(error);
+    });
 
 
 
@@ -156,7 +158,7 @@ function App() {
         {showSongs ?
           <Box sx={{ marginTop: '10px', padding: '20px' }}>
             <Grid container spacing={3} style={{ display: 'flex', justifyContent: 'center' }}>
-              {songs && songs.tracks.hits.map((item, index) => (
+              {songs && songs.map((item, index) => (
                 <Grid item xs={4} md={2} key={index}>
                   <Item>
                     <SongCard song={item} />
