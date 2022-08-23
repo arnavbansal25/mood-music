@@ -47,7 +47,7 @@ function App() {
       // console.log("Coordinates: ", position.coords.latitude, position.coords.longitude);
     })
 
-    location && axios.get("http://api.weatherapi.com/v1/current.json?key=9daf1b5e91b44082aea161904212910&q=" + location + "&aqi=no")
+    location && axios.get(`https://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_WEATHER_API_KEY}=${location}"&aqi=no`)
       .then((response) => {
         setWeather(response.data.current.condition.text);
       })
