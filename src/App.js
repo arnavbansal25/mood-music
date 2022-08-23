@@ -6,7 +6,6 @@ import axios from 'axios';
 import SongCard from './SongCard';
 import WebcamModal from './WebcamModal';
 import * as faceapi from 'face-api.js';
-import { key1 } from './keys';
 
 var geolocation = require('geolocation')
 
@@ -51,7 +50,6 @@ function App() {
     location && axios.get("http://api.weatherapi.com/v1/current.json?key=9daf1b5e91b44082aea161904212910&q=" + location + "&aqi=no")
       .then((response) => {
         setWeather(response.data.current.condition.text);
-        // console.log("Weather: ", response.data.current.condition.text);
       })
   }, [location]);
 
@@ -66,7 +64,6 @@ function App() {
       return;
     }
 
-    // console.log("String: ", mood + " " + weather);
 
     // Shazam API
     const options = {
@@ -75,38 +72,16 @@ function App() {
       params: { term: mood + " " + weather, locale: 'en-US', offset: '0', limit: '20' },
       headers: {
         'x-rapidapi-host': 'shazam.p.rapidapi.com',
-        'x-rapidapi-key': key1
+        'x-rapidapi-key': process.env.REACT_APP_MUSIC_API_KEY
       }
     };
 
     axios.request(options).then(function (response) {
       console.log(response.data.tracks.hits);
       setSongs(response.data.tracks.hits);
-      // localStorage.setItem('newSongs', JSON.stringify(response.data));
     }).catch(function (error) {
       console.error(error);
     });
-
-
-
-    // USNA API
-    // const options = {
-    //   method: 'GET',
-    //   url: 'https://unsa-unofficial-spotify-api.p.rapidapi.com/search',
-    //   params: { query: mood + " " + weather, count: '20', type: 'tracks' },
-    //   headers: {
-    //     'x-rapidapi-host': 'unsa-unofficial-spotify-api.p.rapidapi.com',
-    //     'x-rapidapi-key': '9a977e5dc7msh69a15b5a87d8d6cp138cdfjsnfe53b0f3bcc5'
-    //   }
-    // };
-
-    // axios.request(options).then(function (response) {
-    //   console.log(response.data.Results);
-    //   setSongs(response.data.Results);
-    //   localStorage.setItem('songs', JSON.stringify(response.data.Results));
-    // }).catch(function (error) {
-    //   console.error(error);
-    // });
   }
 
   return (
