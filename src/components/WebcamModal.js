@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, Modal, Typography, Box, Paper, Grid } from '@mui/material';
-import Face from './Face';
+import { Modal,  Box } from '@mui/material';
 import * as faceapi from 'face-api.js';
 
 const style = {
@@ -56,35 +55,26 @@ function WebcamModal(props) {
         interval = setInterval(async () => {
             if (total_frames >= 50) {
                 clearInterval(interval);
-                // console.log("frames received");
-                // console.log("total_frames: ", total_frames);
-                // console.log("angry: ", angry);
-                // console.log("disgusted: ", disgusted);
-                // console.log("fearful: ", fearful);
-                // console.log("happy: ", happy);
-                // console.log("neutral: ", neutral);
-                // console.log("sad: ", sad);
-                // console.log("surprised: ", surprised);
                 var emoVal = Math.max(angry, disgusted, fearful, happy, neutral, sad, surprised);
-                if(emoVal == angry) {
+                if(emoVal === angry) {
                     setEmotion("angry");
                 }
-                else if(emoVal == disgusted) {
+                else if(emoVal === disgusted) {
                     setEmotion("disgusted");
                 }
-                else if(emoVal == fearful) {
+                else if(emoVal === fearful) {
                     setEmotion("fearful");
                 }
-                else if(emoVal == happy) {
+                else if(emoVal === happy) {
                     setEmotion("happy");
                 }
-                else if(emoVal == neutral) {
+                else if(emoVal === neutral) {
                     setEmotion("neutral");
                 }
-                else if(emoVal == sad) {
+                else if(emoVal === sad) {
                     setEmotion("sad");
                 }
-                else if(emoVal == surprised) {
+                else if(emoVal === surprised) {
                     setEmotion("surprised");
                 }
 

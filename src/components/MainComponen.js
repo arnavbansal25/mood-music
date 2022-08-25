@@ -110,8 +110,9 @@ function MainComponent() {
           { emotion: "fear", emoji: "😨", text: "Feared" },
           { emotion: "surprise", emoji: "😲", text: "Surprised" },
           { emotion: "sad", emoji: "😔", text: "Sad" },
-        ].map((item) => (
+        ].map((item, index) => (
           <Button
+            key={index}
             style={{ fontSize: "40px" }}
             onClick={() => recommendSongs(item.emotion)}
           >
