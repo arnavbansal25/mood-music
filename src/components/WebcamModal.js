@@ -57,25 +57,25 @@ function WebcamModal(props) {
                 clearInterval(interval);
                 var emoVal = Math.max(angry, disgusted, fearful, happy, neutral, sad, surprised);
                 if(emoVal === angry) {
-                    setEmotion("angry");
+                    setEmotion("Angry");
                 }
                 else if(emoVal === disgusted) {
-                    setEmotion("disgusted");
+                    setEmotion("Disgusted");
                 }
                 else if(emoVal === fearful) {
-                    setEmotion("fearful");
+                    setEmotion("Fearful");
                 }
                 else if(emoVal === happy) {
-                    setEmotion("happy");
+                    setEmotion("Happy");
                 }
                 else if(emoVal === neutral) {
-                    setEmotion("neutral");
+                    setEmotion("Neutral");
                 }
                 else if(emoVal === sad) {
-                    setEmotion("sad");
+                    setEmotion("Sad");
                 }
                 else if(emoVal === surprised) {
-                    setEmotion("surprised");
+                    setEmotion("Surprised");
                 }
 
                 videoRef && videoRef.current && videoRef.current.pause();

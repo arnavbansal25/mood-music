@@ -9,7 +9,6 @@ import { Button, Box, Paper, Grid } from "@mui/material";
 
 var geolocation = require("geolocation");
 
-
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   textAlign: "center",
@@ -101,23 +100,36 @@ function MainComponent() {
     <div style={{ textAlign: "center" }}>
       <h1 style={{ color: "white" }}>Mood Music</h1>
 
-      <div style={{ marginBttom: "30px" }}>
+      <div
+        style={{
+          gap: "15px",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          marginBottom: "30px",
+        }}
+      >
         {[
-          { emotion: "happy", emoji: "😀", text: "Happy" },
-          { emotion: "sleepy", emoji: "😴", text: "Sleepy" },
-          { emotion: "angry", emoji: "😠", text: "Angry" },
-          { emotion: "neutral", emoji: "😶", text: "Neutral" },
-          { emotion: "fear", emoji: "😨", text: "Feared" },
-          { emotion: "surprise", emoji: "😲", text: "Surprised" },
-          { emotion: "sad", emoji: "😔", text: "Sad" },
+          { emotion: "Happy", emoji: "😀" },
+          { emotion: "Sad", emoji: "😔" },
+          { emotion: "Surprised", emoji: "😲" },
+          { emotion: "Fearful", emoji: "😨" },
+          { emotion: "Angry", emoji: "😠" },
+          { emotion: "Disgusted", emoji: "🤢" },
+          { emotion: "Neutral", emoji: "😶" },
         ].map((item, index) => (
-          <Button
-            key={index}
-            style={{ fontSize: "40px" }}
-            onClick={() => recommendSongs(item.emotion)}
-          >
-            {item.emoji}
-          </Button>
+          <div>
+            <div>
+              <Button
+                key={index}
+                style={{ fontSize: "40px" }}
+                onClick={() => recommendSongs(item.emotion)}
+              >
+                {item.emoji}
+              </Button>
+            </div>
+            <div style={{ color: "lightblue" }}>{item.emotion}</div>
+          </div>
         ))}
       </div>
 
