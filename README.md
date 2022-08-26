@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# Mood Music (https://mood-music-ab.netlify.app/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A react based web application to recommend music based on emotion detected from live webcam feed and weather. 
 
-## Available Scripts
+Mood-Music is a React based web application with capabilities to analyze and detect emotion from live webcam feed in real time. The application takes emotion and weather captured at user’s location and concatenate them into a string. That combined string is then passed into an API to discover the relevant songs which the user might like. The site provides users a friendly interface with engaging visuals and easy navigation.
 
-In the project directory, you can run:
+## Technologies Used:
+- [React](https://reactjs.org/)
+- [JavaScript](https://www.javascript.com/)
 
-### `yarn start`
+### API Used
+* [Face API](https://justadudewhohacks.github.io/face-api.js/docs/index.html)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features:
+- Detect Emotion through WebCam
+- Capture Weather using user's current location
+- Friendly User Interface
+- Responsive Design
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Screenshots:
 
-### `yarn test`
+<table>
+  <tr>
+     <td>Latest Headlines</td>
+     <td>Search News</td>
+     <td>News saved offline in local database</td>
+  </tr>
+  <tr>
+    <td><img src="screen/Screenshot from 2022-04-09 09-44-30.png" width=270 height=480></td>
+    <td><img src="ss/Screenshot from 2022-04-09 09-44-55.png" width=270 height=480></td> 
+    <td><img src="ss/Screenshot from 2022-04-09 09-46-12.png" width=270 height=480></td>
+  </tr>
+ </table>
+ 
+ <table>
+  <tr>
+     <td>Share News article</td>
+     <td>Read full article in web view</td>
+  </tr>
+  <tr>
+    <td><img src="ss/Screenshot from 2022-04-09 10-42-23.png" width=270 height=480></td>
+    <td><img src="ss/Screenshot from 2022-04-09 10-43-07.png" width=270 height=480></td>
+  </tr>
+ </table>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Apk Link 
+- https://drive.google.com/file/d/1cg55nZCcjljfts5IyyJg7XmVACK_yGqz/view?usp=sharing
