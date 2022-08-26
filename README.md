@@ -21,8 +21,11 @@ A react based web application to recommend music based on emotion detected from 
 #### Application Interface
 <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/interface1.png" width=1000>
 
+#### Workflow
+<img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/workflow.png"></td>
+
 #### One Webcam Frame
 <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/webcam_frame.jpg">
 
-#### Workflow
-<img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/workflow.png"></td>
+#### Face Key Points
+<img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/face%20key%20points.png"></td>
