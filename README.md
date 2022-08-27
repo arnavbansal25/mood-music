@@ -12,7 +12,7 @@ A react based web application to recommend music based on emotion detected from 
 - [React](https://reactjs.org/)
 - [JavaScript](https://www.javascript.com/)
 
-### API Used
+## API Used
 * Emotion Detection [Face API](https://justadudewhohacks.github.io/face-api.js/docs/index.html)
 * Weather Detection [Weather API](https://www.weatherapi.com/)
 * Song Recommendation [Shazam API](https://rapidapi.com/apidojo/api/shazam)
