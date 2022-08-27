@@ -2,6 +2,12 @@
 
 A react based web application to recommend music based on emotion detected from live webcam feed and weather. 
 
+## Features:
+- Detect Emotion through WebCam
+- Capture Weather using user's current location
+- Friendly User Interface
+- Responsive Design
+
 ## Technologies Used:
 - [React](https://reactjs.org/)
 - [JavaScript](https://www.javascript.com/)
@@ -10,12 +16,6 @@ A react based web application to recommend music based on emotion detected from 
 * Emotion Detection [Face API](https://justadudewhohacks.github.io/face-api.js/docs/index.html)
 * Weather Detection [Weather API](https://www.weatherapi.com/)
 * Song Recommendation [Shazam API](https://rapidapi.com/apidojo/api/shazam)
-
-## Features:
-- Detect Emotion through WebCam
-- Capture Weather using user's current location
-- Friendly User Interface
-- Responsive Design
 
 ## Screenshots:
 #### Application Interface
