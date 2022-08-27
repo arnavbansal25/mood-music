@@ -18,14 +18,14 @@ A react based web application to recommend music based on emotion detected from 
 * Song Recommendation [Shazam API](https://rapidapi.com/apidojo/api/shazam)
 
 ## Screenshots:
-#### Application Interface
-<img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/interface1.png" width=1000>
+| Application Interface |
+|          :---:        |
+| <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/interface1.png" width=1000> |
 
-#### Workflow
-<img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/workflow.png"></td>
+| Workflow |
+|   :---:  |
+| <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/workflow.png"> |
 
-#### One Webcam Frame
-<img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/webcam_frame.jpg">
-
-#### Face Key Points
-<img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/face%20key%20points.png"></td>
+| One Webcam Frame | Face Key Points |
+|      :---:       |      :---:      |
+| <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/webcam_frame.jpg"> | <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/face%20key%20points.png"> |
