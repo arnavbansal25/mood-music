@@ -1,12 +1,13 @@
-# Mood Music [Live](https://mood-music-ab.netlify.app/)
+# Mood Music <img src="https://github.com/arnavbansal25/mood-music/blob/main/logo.png" width=50>
+Mood-Music is a React based web application with capabilities to analyze and detect emotion from live webcam feed in real time. The application takes emotion and weather captured at user’s location and concatenate them into a string. That combined string is then passed into an API to discover the relevant songs which the user might like. The site provides users a friendly interface with engaging visuals and easy navigation.
 
-A react based web application to recommend music based on emotion detected from live webcam feed and weather. 
+## Live Demo Link
+Hosted on [Netlify](https://mood-music-ab.netlify.app/)
 
 ## Features:
-- Detect Emotion through WebCam
-- Capture Weather using user's current location
-- Friendly User Interface
-- Responsive Design
+| Emotion Detection | Webcam Capture | Weather Detection | Friendly User Interface | Completely Client Side | Responsive Design |
+|       :---:       |      :---:     |       :---:       |          :---:          |         :---:          |       :---:       |
+| <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/f_emotion_detection.png" width=100> | <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/f_webcam_capture.png" width=100> | <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/f_weather_detection.png" width=100> | <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/f_friendly_ui.png" width=100> | <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/f_client_side.png" width=100> | <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/f_responsive_design.png" width=100> |
 
 ## Technologies Used:
 - [React](https://reactjs.org/)
@@ -28,4 +29,4 @@ A react based web application to recommend music based on emotion detected from 
 
 | One Webcam Frame | Face Key Points |
 |      :---:       |      :---:      |
-| <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/webcam_frame.jpg"> | <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/face%20key%20points.png"> |
+| <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/webcam_frame.jpg"> | <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/face_key_points.png"> |
