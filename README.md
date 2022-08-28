@@ -30,3 +30,5 @@ Hosted on [Netlify](https://mood-music-ab.netlify.app/)
 | One Webcam Frame | Face Key Points |
 |      :---:       |      :---:      |
 | <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/webcam_frame.jpg"> | <img src="https://github.com/arnavbansal25/mood-music/blob/main/screenshots/face_key_points.png"> |
+
+<a href="https://www.flaticon.com/free-icons/export" title="export icons">Export icons created by Freepik - Flaticon</a>
