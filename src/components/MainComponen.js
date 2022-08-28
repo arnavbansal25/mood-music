@@ -1,13 +1,12 @@
-import axios from "axios";
 import SongCard from "./SongCard";
 import * as faceapi from "face-api.js";
 import WebcamModal from "./WebcamModal";
 import { Bars } from "react-loader-spinner";
 import { styled } from "@mui/material/styles";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Button, Box, Paper, Grid } from "@mui/material";
-
-var geolocation = require("geolocation");
+import { recommendTracks } from "../services/musicApi";
+import { fetchCurrentWeather, getBrowserPosition } from "../services/weatherApi";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -20,12 +19,20 @@ function MainComponent() {
   const [loader, setShowLoader] = useState(false);
   const [songs, setSongs] = useState([]);
   const [showSongs, setShowSongs] = useState(false);
-
   const [webcamModal, setWebcamModal] = useState(false);
   const [emotion, setEmotion] = useState();
   const [weather, setWeather] = useState();
-  const [location, setLocation] = useState();
+  const [weatherError, setWeatherError] = useState();
   const [modelsLoaded, setModelsLoaded] = useState(false);
+  const activeAudioRef = useRef(null);
+
+  const handleExclusivePlay = useCallback((audioElement) => {
+    const current = activeAudioRef.current;
+    if (current && current !== audioElement && !current.paused) {
+      current.pause();
+    }
+    activeAudioRef.current = audioElement;
+  }, []);
 
   useEffect(() => {
     const loadModels = async () => {
@@ -36,66 +43,98 @@ function MainComponent() {
         faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
         faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
         faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
-      ]).then(setModelsLoaded(true));
+      ]).then(() => setModelsLoaded(true));
     };
-    !modelsLoaded && loadModels();
-
-    !location &&
-      geolocation.getCurrentPosition(function (err, position) {
-        if (err) throw err;
-        setLocation(position.coords.latitude + "," + position.coords.longitude);
-      });
-
-    location &&
-      axios
-        .get(
-          `https://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${location}&aqi=no`
-        )
-        .then((response) => {
-          setWeather(response.data.current.condition.text);
-        });
-  }, [location]);
+    if (!modelsLoaded) {
+      loadModels();
+    }
+  }, [modelsLoaded]);
 
   useEffect(() => {
-    emotion && recommendSongs(emotion);
-  }, [emotion]);
-
-  const recommendSongs = (mood) => {
-    setEmotion(mood);
-    setShowLoader(true);
-    setShowSongs(true);
-    if (!weather) {
-      alert("Detecting weather...");
+    const weatherKey = process.env.REACT_APP_WEATHER_API_KEY;
+    if (!weatherKey) {
+      setWeatherError("Weather API key is missing. Add REACT_APP_WEATHER_API_KEY to .env");
       return;
     }
 
-    // Shazam API
-    const options = {
-      method: "GET",
-      url: "https://shazam.p.rapidapi.com/search",
-      params: {
-        term: mood + " " + weather,
-        locale: "en-US",
-        offset: "0",
-        limit: "20",
-      },
-      headers: {
-        "x-rapidapi-host": "shazam.p.rapidapi.com",
-        "x-rapidapi-key": process.env.REACT_APP_MUSIC_API_KEY,
-      },
+    let cancelled = false;
+
+    const loadWeather = async () => {
+      try {
+        let coords;
+        try {
+          coords = await getBrowserPosition();
+        } catch {
+          coords = null;
+        }
+
+        const result = await fetchCurrentWeather(weatherKey, coords || {});
+        if (!cancelled) {
+          setWeather(result.description);
+          setWeatherError(undefined);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setWeatherError("Could not load weather. Check your API key and connection.");
+          console.error(err);
+        }
+      }
     };
 
-    axios
-      .request(options)
-      .then(function (response) {
-        setShowLoader(false);
-        setSongs(response.data.tracks.hits);
-      })
-      .catch(function (error) {
-        setShowLoader(false);
+    loadWeather();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const recommendSongs = useCallback(
+    async (mood) => {
+      setShowSongs(true);
+
+      if (!weather) {
+        alert(
+          weatherError ||
+            "Still detecting weather… please wait a moment and try again."
+        );
+        return;
+      }
+
+      setShowLoader(true);
+      setSongs([]);
+
+      try {
+        const { tracks } = await recommendTracks(mood, weather);
+        setSongs(tracks);
+        if (!tracks.length) {
+          alert("No songs found for this mood and weather. Try another mood.");
+        }
+      } catch (error) {
         console.error(error);
-      });
-  };
+        alert("Could not load song recommendations. Please try again.");
+      } finally {
+        setShowLoader(false);
+      }
+    },
+    [weather, weatherError]
+  );
+
+  useEffect(() => {
+    if (emotion) {
+      recommendSongs(emotion);
+    }
+  }, [emotion, recommendSongs]);
+
+  const moodButtons = [
+    { emotion: "Happy", emoji: "😀" },
+    { emotion: "Sad", emoji: "😔" },
+    { emotion: "Surprised", emoji: "😲" },
+    { emotion: "Fearful", emoji: "😨" },
+    { emotion: "Angry", emoji: "😠" },
+    { emotion: "Disgusted", emoji: "🤢" },
+    { emotion: "Neutral", emoji: "😶" },
+  ];
+
   return (
     <div style={{ textAlign: "center" }}>
       <h1 style={{ color: "white" }}>Mood Music</h1>
@@ -107,23 +146,15 @@ function MainComponent() {
           flexDirection: "row",
           justifyContent: "center",
           marginBottom: "30px",
+          flexWrap: "wrap",
         }}
       >
-        {[
-          { emotion: "Happy", emoji: "😀" },
-          { emotion: "Sad", emoji: "😔" },
-          { emotion: "Surprised", emoji: "😲" },
-          { emotion: "Fearful", emoji: "😨" },
-          { emotion: "Angry", emoji: "😠" },
-          { emotion: "Disgusted", emoji: "🤢" },
-          { emotion: "Neutral", emoji: "😶" },
-        ].map((item, index) => (
-          <div>
+        {moodButtons.map((item, index) => (
+          <div key={item.emotion}>
             <div>
               <Button
-                key={index}
                 style={{ fontSize: "40px" }}
-                onClick={() => recommendSongs(item.emotion)}
+                onClick={() => setEmotion(item.emotion)}
               >
                 {item.emoji}
               </Button>
@@ -137,7 +168,6 @@ function MainComponent() {
         Play my mood!
       </Button>
 
-      {/* Open Webcam and Capture emotion */}
       {webcamModal ? (
         <WebcamModal
           webcamModal={webcamModal}
@@ -145,20 +175,18 @@ function MainComponent() {
           setEmotion={setEmotion}
           modelsLoaded={modelsLoaded}
         />
-      ) : (
-        <></>
-      )}
+      ) : null}
 
       <div style={{ marginTop: "20px" }}>
         {emotion ? (
           <div style={{ color: "white" }}>Mood : {emotion}</div>
-        ) : (
-          <></>
-        )}
+        ) : null}
         {weather ? (
           <div style={{ color: "white" }}>Weather : {weather}</div>
+        ) : weatherError ? (
+          <div style={{ color: "#ffb4b4" }}>{weatherError}</div>
         ) : (
-          <></>
+          <div style={{ color: "lightgray" }}>Detecting weather…</div>
         )}
         {loader ? (
           <div
@@ -186,19 +214,19 @@ function MainComponent() {
               spacing={3}
               style={{ display: "flex", justifyContent: "center" }}
             >
-              {songs &&
-                songs.map((item, index) => (
-                  <Grid item xs={4} md={2} key={index}>
-                    <Item>
-                      <SongCard song={item} />
-                    </Item>
-                  </Grid>
-                ))}
+              {songs.map((item) => (
+                <Grid item xs={4} md={2} key={item.id}>
+                  <Item>
+                    <SongCard
+                      song={item}
+                      onExclusivePlay={handleExclusivePlay}
+                    />
+                  </Item>
+                </Grid>
+              ))}
             </Grid>
           </Box>
-        ) : (
-          <></>
-        )}
+        ) : null}
       </div>
     </div>
   );

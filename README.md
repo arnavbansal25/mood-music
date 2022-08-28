@@ -29,7 +29,7 @@ Hosted on [Netlify](https://mood-music-ab.netlify.app/)
 ## API Used
 * Emotion Detection [Face API](https://justadudewhohacks.github.io/face-api.js/docs/index.html)
 * Weather Detection [Weather API](https://www.weatherapi.com/)
-* Song Recommendation [Shazam API](https://rapidapi.com/apidojo/api/shazam)
+* Song Recommendation [iTunes Search API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/) (free, no key; mood + weather mapped to search terms)
 
 &nbsp;
 \
